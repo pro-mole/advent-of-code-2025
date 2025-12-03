@@ -50,3 +50,24 @@ for battery in batteries:
         joltage += large_v * 10 + small_v
 
 print(f"Part 1 Solution: {joltage}")
+
+joltage = 0
+
+for battery in batteries:
+    battery = battery[:-1]
+    if DEBUG: print(battery)
+
+    while len(battery) > 12:
+        # Remove any number that produces the largest n-1 number among the possibilities
+        # This is _probably_ not very efficient, but it should work
+        best = "0"
+        for i in range(len(battery)):
+            candidate = battery[:i] + battery[i+1:]
+            if int(best) < int(candidate):
+                best = candidate
+        battery = best
+
+    if DEBUG: print(battery)
+    joltage += int(battery)
+
+print(f"Part 2 Solution: {joltage}")
